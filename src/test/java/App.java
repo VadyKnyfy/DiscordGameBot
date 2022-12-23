@@ -30,19 +30,21 @@ public class App {
                 sessions.get(scode).p1r = true;
                 String ready1 = sessions.get(messages[2]).p1r ? "ready :green_circle:" : "not ready :red_circle:";
                 String ready2 = sessions.get(messages[2]).p2r ? "ready :green_circle:" : "not ready :red_circle:";
-
-                sessions.get(messages[2]).mainMessage.edit(msg -> {
-                    msg.setContent("Game code: " +
-                            messages[2] + "\tRound: " + sessions.get(messages[2]).round +
-                            "\nPlayer1\t\tPlayer2\n" +
-                            sessions.get(messages[2]).p1m.getMention() + "\t\t" + sessions.get(messages[2]).p2m.getMention() +
-                            "\n" + sessions.get(messages[2]).p1.getCharacter().getName() + "\t\t" + sessions.get(messages[2]).p2.getCharacter().getName() +
-                            "\nHp:" + sessions.get(messages[2]).p1.getCharacter().getHealthpoint() +
-                            "\t\tHp:" + sessions.get(messages[2]).p2.getCharacter().getHealthpoint() +
-                            "\n" + ready1
-                            + "\t\t" +
-                            ready2);
-                }).block();
+                EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Game round:"+sessions.get(messages[2]).round);
+                builder.addField(sessions.get(messages[2]).p1m.getDisplayName(),
+                        sessions.get(messages[2]).p1.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p1.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p1.getStatus() + "\n"+
+                                "Ready: " + ready1,true);
+                builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
+                        sessions.get(messages[2]).p2.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p2.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p2.getStatus() + "\n"+
+                                "Ready: " + ready2,true);
+                builder.addField("Last round","Waiting first round",false);
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
             }
             if (autm.equalsIgnoreCase(sessions.get(scode).p2m.getMention())) {
                 sessions.get(scode).a2 = new GActivity(activityname);
@@ -50,42 +52,48 @@ public class App {
                 String ready1 = sessions.get(messages[2]).p1r ? "ready :green_circle:" : "not ready :red_circle:";
                 String ready2 = sessions.get(messages[2]).p2r ? "ready :green_circle:" : "not ready :red_circle:";
 
-                sessions.get(messages[2]).mainMessage.edit(msg -> {
-                    msg.setContent("Game code: " +
-                            messages[2] + "\tRound: " + sessions.get(messages[2]).round +
-                            "\nPlayer1\t\tPlayer2\n" +
-                            sessions.get(messages[2]).p1m.getMention() + "\t\t" + sessions.get(messages[2]).p2m.getMention() +
-                            "\n" + sessions.get(messages[2]).p1.getCharacter().getName() + "\t\t" + sessions.get(messages[2]).p2.getCharacter().getName() +
-                            "\nHp:" + sessions.get(messages[2]).p1.getCharacter().getHealthpoint() +
-                            "\t\tHp:" + sessions.get(messages[2]).p2.getCharacter().getHealthpoint() +
-                            "\n" + ready1
-                            + "\t\t" +
-                            ready2);
-                }).block();
+                EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Game round:"+sessions.get(messages[2]).round);
+                builder.addField(sessions.get(messages[2]).p1m.getDisplayName(),
+                        sessions.get(messages[2]).p1.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p1.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p1.getStatus() + "\n"+
+                                "Ready: " + ready1,true);
+                builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
+                        sessions.get(messages[2]).p2.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p2.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p2.getStatus() + "\n"+
+                                "Ready: " + ready2,true);
+                builder.addField("Last round","Waiting first round",false);
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
             }
             if (sessions.get(scode).p2r && sessions.get(scode).p1r) {
                 sessions.get(scode).play();
                 String ready1 = sessions.get(messages[2]).p1r ? "ready :green_circle:" : "not ready :red_circle:";
                 String ready2 = sessions.get(messages[2]).p2r ? "ready :green_circle:" : "not ready :red_circle:";
-
-                sessions.get(messages[2]).mainMessage.edit(msg -> {
-                    msg.setContent("Game code: " +
-                            messages[2] + "\tRound: " + sessions.get(messages[2]).round +
-                            "\nPlayer1\t\tPlayer2\n" +
-                            sessions.get(messages[2]).p1m.getMention() + "\t\t" + sessions.get(messages[2]).p2m.getMention() +
-                            "\n" + sessions.get(messages[2]).p1.getCharacter().getName() + "\t\t" + sessions.get(messages[2]).p2.getCharacter().getName() +
-                            "\nHp:" + sessions.get(messages[2]).p1.getCharacter().getHealthpoint() +
-                            "\t\tHp:" + sessions.get(messages[2]).p2.getCharacter().getHealthpoint() +
-                            "\n" + ready1
-                            + "\t\t" +
-                            ready2);
-                }).block();
+                EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Game round:"+sessions.get(messages[2]).round);
+                builder.addField(sessions.get(messages[2]).p1m.getDisplayName(),
+                        sessions.get(messages[2]).p1.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p1.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p1.getStatus() + "\n"+
+                                "Ready: " + ready1,true);
+                builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
+                        sessions.get(messages[2]).p2.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p2.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p2.getStatus() + "\n"+
+                                "Ready: " + ready2,true);
+                builder.addField("Last round","Waiting first round",false);
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
 
             }
         }
     }
 
     public static void joingame(MessageCreateEvent event, String[] messages) {
+
         if ((sessions.get(messages[2]).connectedBoth) && (!sessions.get(messages[2]).joinBoth)) {
             String autm = event.getMessage().getAuthor().get().getMention();
             int character = Integer.valueOf(messages[1]);
@@ -109,7 +117,7 @@ public class App {
                 builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
                         "Joined:"+join2,true);
                 builder.footer("code:"+messages[2],null);
-                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.create().withEmbeds(builder.build()));
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
             }
             if (autm.equalsIgnoreCase(sessions.get(messages[2]).p2m.getMention())) {
                 System.out.println("0");
@@ -120,27 +128,32 @@ public class App {
                 String join2 = sessions.get(messages[2]).p2j ? ":green_circle:" : ":red_circle:";
                 EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
                 builder.author(event.getClient().getSelf().block().getUsername(),null,null);
-               /*builder.title("Joining");
+                builder.title("Joining");
                 builder.addField(sessions.get(messages[2]).p1m.getDisplayName(),
                         "Joined:"+join1,true);
                 builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
                         "Joined:"+join2,true);
-                builder.footer("code:"+messages[2],null);*/
+                builder.footer("code:"+messages[2],null);
 
-                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.create().withEmbeds(builder.build()));
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
             }
             if ((sessions.get(messages[2]).p1j) && (sessions.get(messages[2]).p2j)) {
                 sessions.get(messages[2]).joinBoth = true;
-                sessions.get(messages[2]).mainMessage.edit(msg -> {
-                    msg.setContent("Game code: " +
-                            messages[2] + "\tRound: " + sessions.get(messages[2]).round +
-                            "\nPlayer1\t\tPlayer2\n" +
-                            sessions.get(messages[2]).p1m.getMention() + "\t\t" + sessions.get(messages[2]).p2m.getMention() +
-                            "\n" + sessions.get(messages[2]).p1.getCharacter().getName() + "\t\t" + sessions.get(messages[2]).p2.getCharacter().getName() +
-                            "\nHp:" + sessions.get(messages[2]).p1.getCharacter().getHealthpoint() +
-                            "\t\tHp:" + sessions.get(messages[2]).p2.getCharacter().getHealthpoint() +
-                            "\nnot ready :red_circle: \t\tnot ready :red_circle:");
-                }).block();
+                EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Game round:"+sessions.get(messages[2]).round);
+                builder.addField(sessions.get(messages[2]).p1m.getDisplayName(),
+                        sessions.get(messages[2]).p1.getCharacter().getName()+"\n"+
+                        "Hp: " + sessions.get(messages[2]).p1.getCharacter().getHealthpoint()+"\n"+
+                        "Status: " + sessions.get(messages[2]).p1.getStatus() + "\n"+
+                        "Ready: :red_circle:",true);
+                builder.addField(sessions.get(messages[2]).p2m.getDisplayName(),
+                        sessions.get(messages[2]).p2.getCharacter().getName()+"\n"+
+                                "Hp: " + sessions.get(messages[2]).p2.getCharacter().getHealthpoint()+"\n"+
+                                "Status: " + sessions.get(messages[2]).p2.getStatus() + "\n"+
+                                "Ready: :red_circle:",true);
+                builder.addField("Last round","Waiting first round",false);
+                sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
             }
         }
     }

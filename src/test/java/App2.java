@@ -23,9 +23,12 @@ public class App2 {
                 if(event.getMessage().getContent().equalsIgnoreCase("!ce")){
                     EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
                     builder.author(event.getClient().getSelf().block().getUsername(),null,null);
-                    builder.title("Test");
-                    builder.description("Message was edit");
-                    builder.footer("edit",null);
+                    builder.title("Joining");
+                    builder.addField("test name1",
+                            "Joined: test",true);
+                    builder.addField("test name2",
+                            "Joined: test\n test \n test \n test end",true);
+                    builder.footer("code: test",null);
                     msge.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
                 }
                 return Mono.empty();
