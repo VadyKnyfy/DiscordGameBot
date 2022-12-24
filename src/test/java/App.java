@@ -154,6 +154,7 @@ public class App {
                                 "Ready: :red_circle:",true);
                 builder.addField("Last round","Waiting first round",false);
                 sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
+
             }
         }
     }
@@ -180,6 +181,20 @@ public class App {
                         "Joined::red_circle:",true);
                 builder.footer("code:"+message,null);
                 sessions.get(message).mainMessage = sessions.get(message).mainGroup.block().createMessage(builder.build()).block();
+                builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Joining");
+                builder.description("Now you have to choose your character for a game. \n " +
+                        "For choose use command \n " +
+                        "!join <Character code> "+ message+
+                        "\n Character code you have to find below.");
+                builder.addField("Character",
+                        "Knight",true);
+                builder.addField("Code",
+                        "1",true);
+                builder.footer("code:"+message,null);
+                sessions.get(message).p1m.getPrivateChannel().block().createMessage(builder.build()).block();
+                sessions.get(message).p2m.getPrivateChannel().block().createMessage(builder.build()).block();
             }
         }
     }
