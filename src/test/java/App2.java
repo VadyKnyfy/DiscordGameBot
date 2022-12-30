@@ -9,6 +9,16 @@ import reactor.core.publisher.Mono;
 public class App2 {
    static Message msge =null;
     public static void main(String[] args) {
+        String actname="";
+        String actcode="";
+        int i=1;
+        for (String act: GActivity.getActivityList()
+        ) {
+            actname+= act + "\n";
+            actcode+= i++ +"\n";
+        }
+        System.out.println(actname);
+        System.out.println(actcode);
         DiscordClient client = DiscordClient.create("MTA0NDE3MjIyMDU4NDQzNTczMg.G1O4QH.vwr16iNWcMeLailh4ydCEAismLiS4mP4h-sCrU");
         client.gateway().setEnabledIntents(IntentSet.all()).login().flatMap(gateway -> {
             Mono<Void> handlePingCommand = gateway.on(MessageCreateEvent.class, event -> {
@@ -30,6 +40,9 @@ public class App2 {
                             "Joined: test\n test \n test \n test end",true);
                     builder.footer("code: test",null);
                     msge.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
+                }
+                if (event.getMessage().getContent().equalsIgnoreCase("!test")){
+
                 }
                 return Mono.empty();
             }).then();

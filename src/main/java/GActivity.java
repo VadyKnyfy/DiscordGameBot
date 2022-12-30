@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class GActivity {
     private int id;
     private String name;
@@ -22,6 +25,17 @@ public class GActivity {
 
     }
     private GActivity(){}
+    public static ArrayList<String> getActivityList(){
+        ArrayList<String> actilist = new ArrayList<>();
+        int n=1;
+        try {
+            while (!getActivitybyId(n).equals(null)) {
+                actilist.add(getActivitybyId(n));
+                n++;
+            }
+        }catch (NullPointerException e){return actilist;}
+        return actilist;
+    }
     public  static String getActivitybyId(int id){
         String name= null;
         switch (id) {

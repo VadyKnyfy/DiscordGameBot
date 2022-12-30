@@ -93,7 +93,14 @@ public class App {
     }
 
     public static void joingame(MessageCreateEvent event, String[] messages) {
-
+        String actname="";
+        String actcode="";
+        int i=1;
+        for (String act: GActivity.getActivityList()
+        ) {
+            actname+= act + "\n";
+            actcode+= i++ +"\n";
+        }
         if ((sessions.get(messages[2]).connectedBoth) && (!sessions.get(messages[2]).joinBoth)) {
             String autm = event.getMessage().getAuthor().get().getMention();
             int character = Integer.valueOf(messages[1]);
@@ -154,7 +161,25 @@ public class App {
                                 "Ready: :red_circle:",true);
                 builder.addField("Last round","Waiting first round",false);
                 sessions.get(messages[2]).mainMessage.edit(MessageEditSpec.builder().addEmbed(builder.build()).build()).block();
+                sessions.get(messages[2]).p1m.getPrivateChannel().block().createMessage("Ok, game is ready, u have to choose actions, when your opponent" +
+                        " choose game you have to see result your and opponent actions. Good luck!");
+                sessions.get(messages[2]).p2m.getPrivateChannel().block().createMessage("Ok, game is ready, u have to choose actions, when your opponent" +
+                        " choose game you have to see result your and opponent actions. Good luck!");
 
+                builder = EmbedCreateSpec.builder();
+                builder.author(event.getClient().getSelf().block().getUsername(),null,null);
+                builder.title("Playing");
+                builder.description("Now you must choose activity \n " +
+                        "For choose use command \n " +
+                        "!play <Activity code> "+ messages[2]+
+                        "\n Activity code you have to find below.");
+                builder.addField("Activity",
+                        actname,true);
+                builder.addField("Code",
+                        actcode,true);
+                builder.footer("code:"+messages[2],null);
+                sessions.get(messages[2]).p1m.getPrivateChannel().block().createMessage(builder.build()).block();
+                sessions.get(messages[2]).p2m.getPrivateChannel().block().createMessage(builder.build()).block();
             }
         }
     }
